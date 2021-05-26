@@ -1,19 +1,27 @@
-name: 'Aqua Security Tracee'
-description: 'Start Runtime Security and Forensics using eBPF'
+name: 'Aqua Security Tracee Stop and Check'
+description: 'Stop & Checks Tracee results with Runtime Security and Forensics using eBPF'
 author: 'Aqua Security'
 inputs:
   workdir:
     description: "Working directory for Tracee"
     required: false
     default: "/tmp/tracee"
+  fail-on-diff:
+    description: "Fails the check if profile differences are found"
+    required: false
+    default: 'false'
+  create-pr:
+    description: "Creates a PR to the default branch with profile differences if found"
+    required: false
+    default: 'false'
 
 runs:
   using: 'composite'
   steps:
   - shell: bash
     run: |
-      docker pull simar7/tracee:latest
-      docker run -d --name tracee-profiler --rm --privileged \
-      -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
-      -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee simar7/tracee:latest \
-      trace --trace event=execve --capture exec --capture profile
+      echo "Stopping Tracee..."
+      docker kill --signal="SIGINT" tracee-profiler
+      docker wait tracee-profiler
+
+      ${{ github.action_path }}/stop.sh ${{ inputs.workdir }} ${{ github.token }} ${{ inputs.fail-on-diff }} ${{ inputs.create-pr }}
