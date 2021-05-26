@@ -1,5 +1,5 @@
 name: 'Aqua Security Tracee Stop and Check'
-description: 'Stop & Checks Tracee results with Runtime Security and Forensics using eBPF'
+description: 'Stop & Checks Tracee results'
 author: 'Aqua Security'
 inputs:
   workdir:
