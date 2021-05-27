@@ -12,6 +12,7 @@ rc=$?
 if [ $rc -ne 0 ]; then
   echo "Differences found..."
   diff "$workdir"/out/tracee.profile ./tracee.profile
+  diff --color=auto <(jq -S . ./tracee.profile) <(jq -S . "$workdir"/out/tracee.profile)
   if [ $create_pr = "true" ]; then
     echo "Creating a commit with all changes..."
     cp $workdir/out/tracee.profile .
