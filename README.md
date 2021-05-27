@@ -1,6 +1,6 @@
 # Tracee Action
 
-Simple example
+## Usage
 
 ```yaml
 name: Tracee Pipeline Scan
@@ -25,6 +25,8 @@ jobs:
         fail-on-diff: "true"
         create-pr: "true"
 ```
+
+## Options
 
 | Option        | Default | Description    |
 |:-------------:|:-------------:|------------- |
