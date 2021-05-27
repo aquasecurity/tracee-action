@@ -25,3 +25,9 @@ jobs:
         fail-on-diff: "true"
         create-pr: "true"
 ```
+
+| Option        | Default | Description    |
+|:-------------:|:-------------:|------------- |
+| fail-on-diff   | false | If differences are observed, pipeline will be failed out |
+| create-pr      | false | Tracee Action will create a PR with observed differences    |
+
