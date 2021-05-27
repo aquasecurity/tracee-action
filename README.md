@@ -1,4 +1,4 @@
-# tracee-action
+# Tracee Action
 
 Simple example
 
