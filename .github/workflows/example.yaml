@@ -1,8 +1,3 @@
-# tracee-action
-
-Simple example
-
-```yaml
 name: Tracee Pipeline Scan
 on: [pull_request]
 
@@ -24,4 +19,3 @@ jobs:
       with:
         fail-on-diff: "true"
         create-pr: "true"
-```
