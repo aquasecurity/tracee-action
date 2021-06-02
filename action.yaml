@@ -17,3 +17,5 @@ runs:
       -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
       -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee simar7/tracee:latest \
       trace --trace event=execve --capture exec --capture profile
+
+      ${{ github.action_path }}/start.sh ${{ inputs.workdir }}
