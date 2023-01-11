@@ -21,7 +21,10 @@ runs:
   - shell: bash
     run: |
       echo "Stopping Tracee..."
-      docker kill --signal="SIGINT" tracee-profiler
+      # sends SIGTERM to the tracee process to stop the container. 
+      # this is a temporary solution because tracee is not handling signals properly,
+      # so we can use docker kill or docker stop. 
+      sudo killall tracee-ebpf
       docker wait tracee-profiler
 
       ${{ github.action_path }}/stop.sh ${{ inputs.workdir }} ${{ github.token }} ${{ inputs.fail-on-diff }} ${{ inputs.create-pr }}
