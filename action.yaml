@@ -12,10 +12,11 @@ runs:
   steps:
   - shell: bash
     run: |
-      docker pull simar7/tracee:latest
+      docker pull aquasec/tracee:latest
       docker run -d --name tracee-profiler --rm --privileged \
+      -e LIBBPFGO_OSRELEASE_FILE=/etc/os-release-host \
       -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
-      -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee simar7/tracee:latest \
+      -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee aquasec/tracee:latest \
       trace --trace event=execve --capture exec --capture profile
 
       ${{ github.action_path }}/start.sh ${{ inputs.workdir }}
