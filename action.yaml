@@ -1,23 +1,22 @@
-name: 'Aqua Security Tracee'
-description: 'Start Runtime Security and Forensics using eBPF'
+name: 'Aqua Tracee'
+description: 'Protect your GitHub Actions pipelines with eBPF profiling'
 author: 'Aqua Security'
-inputs:
-  workdir:
-    description: "Working directory for Tracee"
-    required: false
-    default: "/tmp/tracee"
-
 runs:
   using: 'composite'
   steps:
   - shell: bash
     run: |
-      export RUNNER_ID=$(id -u runner)
+      RUNNER_ID=$(id -u runner)
       docker pull aquasec/tracee:latest
       docker run -d --name tracee-profiler --rm --privileged \
       -e LIBBPFGO_OSRELEASE_FILE=/etc/os-release-host \
       -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
-      -v /usr/src:/usr/src:ro -v ${{ inputs.workdir }}:/tmp/tracee aquasec/tracee:latest \
-      trace --trace event=execve -trace uid=$RUNNER_ID --capture exec --capture profile
-
-      ${{ github.action_path }}/start.sh ${{ inputs.workdir }}
+      -v /usr/src:/usr/src:ro aquasec/tracee:latest \
+      trace --trace event=execve --trace uid=$RUNNER_ID --capture profile
+      echo -n "Waiting for Tracee to start..."
+      until [ -f /tmp/tracee/out/tracee.pid ]
+      do
+          echo -n "."
+          sleep 1
+      done
+      echo "" #newline
