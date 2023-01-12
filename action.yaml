@@ -14,7 +14,7 @@ runs:
       -v /boot:/boot \
       -v /lib/modules/:/lib/modules/:ro \
       -v /etc/os-release:/etc/os-release-host:ro \
-      -v ${{ inputs.workdir }}:/tmp/tracee \
+      -v /tmp/tracee/:/tmp/tracee \
       -v /usr/src:/usr/src:ro aquasec/tracee:latest \
       trace --trace event=execve --trace uid=$RUNNER_ID --capture profile
       echo -n "Waiting for Tracee to start..."
