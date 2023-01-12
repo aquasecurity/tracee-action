@@ -10,8 +10,11 @@ runs:
       docker pull aquasec/tracee:latest
       docker run -d --name tracee-profiler --rm --privileged \
       -e LIBBPFGO_OSRELEASE_FILE=/etc/os-release-host \
-      -v /proc:/proc -v /boot:/boot -v /lib/modules/:/lib/modules/:ro \
+      -v /proc:/proc \
+      -v /boot:/boot \
+      -v /lib/modules/:/lib/modules/:ro \
       -v /etc/os-release:/etc/os-release-host:ro \
+      -v ${{ inputs.workdir }}:/tmp/tracee \
       -v /usr/src:/usr/src:ro aquasec/tracee:latest \
       trace --trace event=execve --trace uid=$RUNNER_ID --capture profile
       echo -n "Waiting for Tracee to start..."
