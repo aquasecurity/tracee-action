@@ -26,7 +26,7 @@ runs:
     run: |
       echo "Generating profile..."
       mkdir /tmp/tracee-action
-      ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl > /tmp/tracee-action/profile.json
+      ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl ${{github.workspace}}/profile-config.json > /tmp/tracee-action/profile.json
   - shell: bash
     run: |
       echo "Checking profile..."
