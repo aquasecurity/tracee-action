@@ -1,20 +1,15 @@
-name: 'Aqua Security Tracee Stop and Check'
-description: 'Stop & Checks Tracee results'
+name: 'Aqua Tracee'
+description: 'Protect your GitHub Actions pipelines with eBPF profiling'
 author: 'Aqua Security'
 inputs:
-  workdir:
-    description: "Working directory for Tracee"
-    required: false
-    default: "/tmp/tracee"
   fail-on-diff:
-    description: "Fails the check if profile differences are found"
+    description: "Fails the action if profile deviation found"
     required: false
     default: 'false'
   create-pr:
     description: "Creates a PR to the default branch with profile differences if found"
     required: false
     default: 'false'
-
 runs:
   using: 'composite'
   steps:
@@ -26,5 +21,13 @@ runs:
       # so we can use docker kill or docker stop. 
       sudo killall tracee-ebpf
       docker wait tracee-profiler
-
-      ${{ github.action_path }}/stop.sh ${{ inputs.workdir }} ${{ github.token }} ${{ inputs.fail-on-diff }} ${{ inputs.create-pr }}
+  - shell: bash
+    working-directory: ${{github.action_path}}/profile
+    run: |
+      echo "Generating profile..."
+      mkdir /tmp/tracee-action
+      ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl > /tmp/tracee-action/profile.json
+  - shell: bash
+    run: |
+      echo "Checking profile..."
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile.json ./tracee.profile ${{ github.token }} ${{ inputs.fail-on-diff }} ${{ inputs.create-pr }}
