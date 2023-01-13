@@ -16,7 +16,9 @@ runs:
       -v /etc/os-release:/etc/os-release-host:ro \
       -v /tmp/tracee/:/tmp/tracee \
       -v /usr/src:/usr/src:ro aquasec/tracee:latest \
-      trace --trace event=execve --trace uid=$RUNNER_ID --capture profile
+      trace --trace event=sched_process_exec --trace uid=$RUNNER_ID  \
+      --capture exec --output option:exec-hash --output option:exec-env \
+      --output out-file:/tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl --output format:json
       echo -n "Waiting for Tracee to start..."
       until [ -f /tmp/tracee/out/tracee.pid ]
       do
