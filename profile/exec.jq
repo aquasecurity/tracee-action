@@ -1,4 +1,8 @@
+# getarg returns the value of the argument with the given name from a Tracee execution event
 def getarg(name): .args[] | select(.name == name) | .value;
+
+# discard_items discards all items in the input array of strings that starts with a prefix from the prefixes array of strings
+def discard_items(prefixes): if prefixes | length > 0 then map(select(startswith(prefixes[]) | not)) else . end;
 
 [
   .[] | 
@@ -7,6 +11,7 @@ def getarg(name): .args[] | select(.name == name) | .value;
     process_name: .processName,
     binary_path: getarg("pathname"),
     binary_sha256: getarg("sha256"),
-    binary_ctime: getarg("ctime")
+    binary_ctime: getarg("ctime"),
+    process_args: getarg("argv") | discard_items($config[0].args_discard)
   } 
 ] | sort_by(.binary_path)

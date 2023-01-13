@@ -1,0 +1,3 @@
+{"userId":1,"processName":"yo","args":[{"name":"pathname","value":"/bin/yo"},{"name":"sha256","value":"1aaa"},{"name":"ctime","value":123},{"name":"argv","value":["yo"]}]}
+{"userId":1,"processName":"yo","args":[{"name":"pathname","value":"/bin/yo"},{"name":"sha256","value":"1b"},{"name":"ctime","value":124},{"name":"argv","value":["yo", "ho"]}]}
+{"userId":1,"processName":"su","args":[{"name":"pathname","value":"/bin/sup"},{"name":"sha256","value":"2a"},{"name":"ctime","value":123},{"name":"argv","value":["super"]}]}
