@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+jq -s -f ./exec.jq "$1"
