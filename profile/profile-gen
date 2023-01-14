@@ -3,9 +3,4 @@
 trace_file="$1"
 config_file="$2"
 
-# make sure there's a config file
-if [[ ! -f "$config_file" ]]; then
-  cp "$(dirname ${BASH_SOURCE[0]})/profile-config.json" "$config_file"
-fi
-
 jq -s -f ./exec.jq --slurpfile "config" "$config_file" "$trace_file"
