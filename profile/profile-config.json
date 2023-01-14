@@ -1,5 +1,7 @@
 {
   "args_discard": [
     "/home/runner/work/_temp/"
+  ],
+  "env_discard": [
   ]
 }
