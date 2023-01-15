@@ -20,7 +20,7 @@ runs:
       # this is a temporary solution because tracee is not handling signals properly,
       # so we can use docker kill or docker stop. 
       sudo killall tracee
-      docker wait tracee-profiler
+      docker wait tracee
   - shell: bash
     working-directory: ${{github.action_path}}/profile
     run: |
@@ -28,10 +28,13 @@ runs:
       mkdir /tmp/tracee-action
       profile_config="${{github.workspace}}/.tracee/profile-config.json"
       if [[ ! -f "$profile_config" ]]; then
-        profile_config="./profile-config.json"
+        profile_config="${{github.action_path}}/profile/profile-config.json"
       fi
-      ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl "$profile_config" > /tmp/tracee-action/profile.json
+      ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl "$profile_config" /tmp/tracee-action
   - shell: bash
     run: |
       echo "Checking profile..."
-      ${{github.action_path}}/check.sh /tmp/tracee-action/profile.json ./.tracee/tracee.profile ${{ github.token }} ${{ inputs.fail-on-diff }} ${{ inputs.create-pr }}
+      rc=0
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-exec.json ./.tracee/profile-exec.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-dns.json ./.tracee/profile-dns.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
+      [ ${{ inputs.fail-on-diff }} ] && echo "***FAILING DUE TO PROFILE DEVIATION***" && exit $rc

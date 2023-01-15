@@ -13,6 +13,6 @@ def discard_items(prefixes): if prefixes | length > 0 then map(select([startswit
     binary_sha256: getarg("sha256"),
     binary_ctime: getarg("ctime"),
     process_args: getarg("argv") | discard_items($config[0].args_discard),
-    process_env: getarg("env") | sort | discard_items($config[0].env_discard)
+    process_env: getarg("env") | discard_items($config[0].env_discard) | sort
   } 
 ] | sort_by(.binary_path)
