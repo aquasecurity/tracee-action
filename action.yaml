@@ -19,7 +19,7 @@ runs:
       # sends SIGTERM to the tracee process to stop the container. 
       # this is a temporary solution because tracee is not handling signals properly,
       # so we can use docker kill or docker stop. 
-      sudo killall tracee-ebpf
+      sudo killall tracee
       docker wait tracee-profiler
   - shell: bash
     working-directory: ${{github.action_path}}/profile
