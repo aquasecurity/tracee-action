@@ -3,5 +3,9 @@
     "/home/runner/work/_temp/"
   ],
   "env_discard": [
+    "RUNNER_TRACKING_ID",
+    "SYSTEMD_EXEC_PID",
+    "INVOCATION_ID",
+    "GITHUB_"
   ]
 }
