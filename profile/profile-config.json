@@ -6,6 +6,7 @@
     "RUNNER_TRACKING_ID",
     "SYSTEMD_EXEC_PID",
     "INVOCATION_ID",
+    "JOURNAL_STREAM",
     "GITHUB_"
   ]
 }
