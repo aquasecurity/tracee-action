@@ -33,6 +33,12 @@ runs:
       ./profile-gen /tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl "$profile_config" /tmp/tracee-action
   - shell: bash
     run: |
+      echo "Checking if signatures were triggered..."
+      if [[ -s /tmp/tracee-action/signatures.json ]]; then
+       ${{github.action_path}}/create-pr-comment.sh
+      fi
+  - shell: bash
+    run: |
       echo "Checking profile..."
       rc=0
       ${{github.action_path}}/check.sh /tmp/tracee-action/profile-exec.json ./.tracee/profile-exec.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
