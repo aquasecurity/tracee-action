@@ -6,3 +6,4 @@ output_dir="$3"
 
 jq -s -f ./exec.jq --slurpfile "config" "$config_file" "$trace_file" > "$output_dir/profile-exec.json"
 jq -s -f ./dns.jq --slurpfile "config" "$config_file" "$trace_file" > "$output_dir/profile-dns.json"
+jq -c -s -f ./signatures.jq --slurpfile "config" "$config_file" "$trace_file" > "$output_dir/signatures.jsonl"
