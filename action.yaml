@@ -34,7 +34,7 @@ runs:
   - shell: bash
     run: |
       echo "Checking if signatures were triggered..."
-      if [[ -s /tmp/tracee-action/signatures.json ]]; then
+      if [[ -s /tmp/tracee-action/signatures.jsonl ]]; then
        ${{github.action_path}}/create-pr-comment.sh
       fi
   - shell: bash
