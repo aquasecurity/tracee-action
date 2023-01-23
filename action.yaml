@@ -35,7 +35,13 @@ runs:
     run: |
       echo "Checking if signatures were triggered..."
       if [[ -s /tmp/tracee-action/signatures.jsonl ]]; then
-       ${{github.action_path}}/create-pr-comment.sh
+        if ${{ github.event_name == 'pull_request' }}; then
+          echo "Creating PR comment with triggered signatures"
+          ${{github.action_path}}/create-pr-comment.sh ${{ github.token }}
+        else
+          echo "Printing triggered signatures"
+          cat /tmp/tracee-action/signatures.jsonl  
+        fi
       fi
   - shell: bash
     run: |
