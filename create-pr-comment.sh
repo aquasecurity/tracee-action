@@ -1,4 +1,9 @@
 #!/bin/bash
+set -o pipefail
+
+token="$1"
+
+gh auth login --with-token <<<"$token"
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 comment=$(cat <<EOF
