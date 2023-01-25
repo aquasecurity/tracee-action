@@ -1,11 +1,17 @@
 name: 'Aqua Tracee'
 description: 'Protect your GitHub Actions pipelines with eBPF profiling'
 author: 'Aqua Security'
+inputs:
+  envs:
+    description: 'include environment variables in executable profile'
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
   - shell: bash
     run: |
+      trace_env=$(if [ "${{inputs.envs}}" = "true" ]; then echo "--output option:exec-env"; fi)
       runner_pid=$(pgrep Runner.Listener)
       docker pull aquasec/tracee:0.10.0
       docker run -d --name tracee --rm \
@@ -23,7 +29,7 @@ runs:
       --trace tree=$runner_pid \
       --trace event=stdio_over_socket,aslr_inspection,proc_mem_code_injection,docker_abuse,scheduled_task_mod,ld_preload,cgroup_notify_on_release,default_loader_mod,sudoers_modification,sched_debug_recon,system_request_key_mod,cgroup_release_agent,rcd_modification,core_pattern_modification,proc_kcore_read,proc_mem_access,hidden_file_created,anti_debugging,ptrace_code_injection,process_vm_write_inject,disk_mount,dynamic_code_loading,fileless_execution,illegitimate_shell,kernel_module_loading,proc_fops_hooking,syscall_hooking,dropped_executable,file_write \
       --trace event=sched_process_exec,net_packet_dns --trace security_file_open.args.pathname="${{github.workspace}}/*" \
-      --output option:exec-hash --output option:exec-env \
+      --output option:exec-hash $trace_env \
       --output out-file:/tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl --output format:json
       echo -n "Waiting for Tracee to start..."
       until [ -f /tmp/tracee/out/tracee.pid ]
