@@ -9,6 +9,8 @@
     "JOURNAL_STREAM",
     "GITHUB_"
 	],
+  "args_discard_pair": [
+  ],
 	"dns_discard": [
 		"pipelines.actions.githubusercontent.com"
 	]
