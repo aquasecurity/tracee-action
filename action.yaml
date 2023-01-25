@@ -50,4 +50,7 @@ runs:
       ${{github.action_path}}/check.sh /tmp/tracee-action/profile-exec.json ./.tracee/profile-exec.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
       ${{github.action_path}}/check.sh /tmp/tracee-action/profile-dns.json ./.tracee/profile-dns.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
       ${{github.action_path}}/check.sh /tmp/tracee-action/profile-writes.json ./.tracee/profile-writes.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
-      [ ${{ inputs.fail-on-diff }} ] && echo "***FAILING DUE TO PROFILE DEVIATION***" && exit $rc
+      if [ "${{ inputs.fail-on-diff }}" == "true" ]; then
+        echo "***FAILING DUE TO PROFILE DEVIATION***" 
+        exit $rc
+      fi
