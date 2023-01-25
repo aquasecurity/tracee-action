@@ -8,5 +8,8 @@
     "INVOCATION_ID",
     "JOURNAL_STREAM",
     "GITHUB_"
-  ]
+	],
+	"dns_discard": [
+		"pipelines.actions.githubusercontent.com"
+	]
 }
