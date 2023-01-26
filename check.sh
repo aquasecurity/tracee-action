@@ -5,7 +5,9 @@ profile_new="$1"
 profile_old="$2"
 token="$3"
 create_pr="$4"
-pr_message="[Tracee](https://github.com/aquasecurity/tracee) has detected deviation from normal behavior of the workflow.
+pr_url="$5"
+
+pr_message="[Tracee](https://github.com/aquasecurity/tracee) has detected deviation from normal behavior of the workflow for the [PR]($pr_url).
 Review the changes in this PR and accept it in order to establish a new baseline."
 
 diff=$(diff <(jq -c 'tostream' "$profile_old") <(jq -c 'tostream' "$profile_new") | head -n 20)

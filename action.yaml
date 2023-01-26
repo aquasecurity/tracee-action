@@ -47,9 +47,11 @@ runs:
     run: |
       echo "Checking profile..."
       rc=0
-      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-exec.json ./.tracee/profile-exec.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
-      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-dns.json ./.tracee/profile-dns.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
-      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-writes.json ./.tracee/profile-writes.json ${{ github.token }} ${{ inputs.create-pr }} || rc=$((rc+1))
+      pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+      pr_url="http://github.com/${{ github.repository }}/pull/$pr_number"
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-exec.json ./.tracee/profile-exec.json ${{ github.token }} ${{ inputs.create-pr }} $pr_url || rc=$((rc+1))
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-dns.json ./.tracee/profile-dns.json ${{ github.token }} ${{ inputs.create-pr }} $pr_url || rc=$((rc+1))
+      ${{github.action_path}}/check.sh /tmp/tracee-action/profile-writes.json ./.tracee/profile-writes.json ${{ github.token }} ${{ inputs.create-pr }} $pr_url || rc=$((rc+1))
       if [ "${{ inputs.fail-on-diff }}" == "true" ]; then
         echo "***FAILING DUE TO PROFILE DEVIATION***" 
         exit $rc
