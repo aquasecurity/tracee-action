@@ -18,5 +18,5 @@ tracee_selected_events[eventSelector] {
 
 tracee_match {
 	input.eventName == "security_file_open"
-  helpers.is_file_write(helpers.get_tracee_argument("flags"))
+	helpers.is_file_write(helpers.get_tracee_argument("flags"))
 }

@@ -25,9 +25,10 @@ runs:
       -v /usr/src:/usr/src:ro \
       --entrypoint=/tracee/tracee \
       -v ${{github.action_path}}/signatures/file_write.rego:/tracee/rules/file_write.rego \
+      -v ${{github.action_path}}/signatures/miner_domain.rego:/tracee/rules/miner_domain.rego \
       aquasec/tracee:0.10.0 \
       --trace tree=$runner_pid \
-      --trace event=stdio_over_socket,aslr_inspection,proc_mem_code_injection,docker_abuse,scheduled_task_mod,ld_preload,cgroup_notify_on_release,default_loader_mod,sudoers_modification,sched_debug_recon,system_request_key_mod,cgroup_release_agent,rcd_modification,core_pattern_modification,proc_kcore_read,proc_mem_access,hidden_file_created,anti_debugging,ptrace_code_injection,process_vm_write_inject,disk_mount,dynamic_code_loading,fileless_execution,illegitimate_shell,kernel_module_loading,proc_fops_hooking,syscall_hooking,dropped_executable,file_write \
+      --trace event=stdio_over_socket,aslr_inspection,proc_mem_code_injection,docker_abuse,scheduled_task_mod,ld_preload,cgroup_notify_on_release,default_loader_mod,sudoers_modification,sched_debug_recon,system_request_key_mod,cgroup_release_agent,rcd_modification,core_pattern_modification,proc_kcore_read,proc_mem_access,hidden_file_created,anti_debugging,ptrace_code_injection,process_vm_write_inject,disk_mount,dynamic_code_loading,fileless_execution,illegitimate_shell,kernel_module_loading,proc_fops_hooking,syscall_hooking,dropped_executable,file_write,miner_domain \
       --trace event=sched_process_exec,net_packet_dns --trace security_file_open.args.pathname="${{github.workspace}}/*" \
       --output option:exec-hash $trace_env \
       --output out-file:/tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl --output format:json
