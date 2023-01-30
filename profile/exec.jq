@@ -20,4 +20,4 @@ def discard_binary_sha256(patterns): if patterns | length > 0 then select([.bina
     process_args: getarg("argv") | discard_items_pairs($config[0].args_discard_pair) | discard_items($config[0].args_discard),
     process_env: (if isempty(getarg("env")) | not then (discard_items($config[0].env_discard) | sort) else null end)
   } | discard_binary_sha256($config[0].binary_sha256_discard)
-] | sort_by(.binary_path)
+] | sort_by(.binary_path) | sort_by(.process_args)
