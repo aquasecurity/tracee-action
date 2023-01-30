@@ -13,5 +13,7 @@
   ],
 	"dns_discard": [
 		"pipelines.actions.githubusercontent.com"
+	],
+	"binary_sha256_discard":[
 	]
 }
