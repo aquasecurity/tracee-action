@@ -4,7 +4,7 @@ import data.tracee.helpers
 __rego_metadoc__ := {
 	"id": "TRC_1001",
 	"version": "0.1.0",
-	"name": "File write",
+	"name": "file_write",
 	"eventName": "file_write",
 	"description": "A file is being written to",
 }
