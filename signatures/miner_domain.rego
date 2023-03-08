@@ -4,7 +4,7 @@ import data.tracee.helpers
 __rego_metadoc__ := {
 	"id": "TRC_1002",
 	"version": "0.1.0",
-	"name": "A cryptominer domain was queried",
+	"name": "miner_domain",
 	"eventName": "miner_domain",
 	"description": "Check for commom cryptominers domains access",
 }
