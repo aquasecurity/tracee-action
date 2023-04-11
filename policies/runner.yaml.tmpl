@@ -1,0 +1,8 @@
+name: runner
+description: trace runner process tree
+defaultAction: log
+scope:
+  - tree=$RUNNER_PID
+rules:
+  - event: sched_process_exec
+  - event: net_packet_dns

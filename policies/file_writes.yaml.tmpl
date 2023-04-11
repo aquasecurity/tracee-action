@@ -1,0 +1,9 @@
+name: file_writes
+description: tracee file writes under {{github.workspace}}
+defaultAction: log
+scope:
+  - global
+rules:
+  - event: security_file_open
+    filter: 
+      - args.pathname=$WORKSPACE
