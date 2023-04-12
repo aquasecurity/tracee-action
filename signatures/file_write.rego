@@ -16,7 +16,11 @@ tracee_selected_events[eventSelector] {
 	}
 }
 
-tracee_match {
+tracee_match = res {
 	input.eventName == "security_file_open"
 	helpers.is_file_write(helpers.get_tracee_argument("flags"))
+	pathname := helpers.get_tracee_argument("pathname")
+  res := {
+    "pathname": pathname,
+  }
 }
