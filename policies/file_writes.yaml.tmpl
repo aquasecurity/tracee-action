@@ -4,6 +4,6 @@ defaultAction: log
 scope:
   - global
 rules:
-  - event: security_file_open
-    filter: 
+  - event: file_write
+    filter:
       - args.pathname=$WORKSPACE
