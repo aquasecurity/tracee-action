@@ -1,3 +1,7 @@
+# Production Ready
+
+**This project is not production ready. We are experimenting with it to test and demostrate Tracee capabilities.**
+
 # Protect your GitHub Actions with Tracee
 
 [Tracee](https://github.com/aquasecurity/tracee) is a powerful open source runtime security and forensics solution. It is using eBPF to trace your system, produce rich events that gives you visibility into what is happening under the hood, and also detects suspicious behavior in those event.
