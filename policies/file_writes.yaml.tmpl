@@ -1,9 +1,13 @@
-name: file_writes
-description: tracee file writes under {{github.workspace}}
-defaultAction: log
-scope:
-  - global
-rules:
-  - event: file_write
-    filter:
-      - args.pathname=$WORKSPACE
+apiVersion: aquasecurity.github.io/v1beta1
+kind: TraceePolicy
+metadata:
+  name: file-writes
+  annotations:
+    description: tracee file writes under {{github.workspace}}
+spec:
+  scope:
+    - global
+  rules:
+    - event: file_write
+      filter:
+        - args.pathname=$WORKSPACE
