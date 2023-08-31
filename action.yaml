@@ -16,11 +16,7 @@ runs:
   - shell: bash
     run: |
       echo "Stopping Tracee..."
-      # sends SIGTERM to the tracee process to stop the container. 
-      # this is a temporary solution because tracee is not handling signals properly,
-      # so we can use docker kill or docker stop. 
-      sudo killall tracee
-      docker wait tracee
+      docker stop tracee
   - shell: bash
     working-directory: ${{github.action_path}}/profile
     run: |
