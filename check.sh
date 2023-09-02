@@ -8,9 +8,10 @@ create_pr="$4"
 pr_message="[Tracee](https://github.com/aquasecurity/tracee) has detected deviation from normal behavior of the workflow.
 Review the changes in this PR and accept it in order to establish a new baseline."
 
-diff=$(diff <(jq -c 'tostream' "$profile_old") <(jq -c 'tostream' "$profile_new") | head -n 20)
+jq --null-input --exit-status --slurpfile "new" "$profile_new" --slurpfile "old" "$profile_old" '($new[0]-$old[0])!=[]'
 rc=$?
-if [ $rc -ne 0 ]; then # diff found
+if [ $rc -ne 0 ]; then # profile additions
+  diff=$(diff <(jq --compact-output 'tostream' "$profile_old") <(jq --compact-output 'tostream' "$profile_new") | head -n 20)
   echo -e "changes:\n$diff"
   if [ "$create_pr" ]; then
     mkdir -p "$(dirname "$profile_old")"
