@@ -18,7 +18,7 @@ runs:
       sed -e "s|\$WORKSPACE|${{github.workspace}}\/*|" ${{github.action_path}}/policies/file_writes.yaml.tmpl > ${{github.action_path}}/policies/file_writes.yaml
       trace_env=$(if [ "${{inputs.envs}}" = "true" ]; then echo "--output option:exec-env"; fi)
       docker pull aquasec/tracee:0.17.1
-      docker run -d --name tracee --rm \
+      docker run -d --name tracee --rm -p 3366 \
       --privileged --pid=host --cgroupns=host \
       -e LIBBPFGO_OSRELEASE_FILE=/etc/os-release-host \
       -v /proc:/proc \
