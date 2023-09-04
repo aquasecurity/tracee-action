@@ -18,7 +18,7 @@ runs:
       sed -e "s|\$WORKSPACE|${{github.workspace}}\/*|" ${{github.action_path}}/policies/file_writes.yaml.tmpl > ${{github.action_path}}/policies/file_writes.yaml
       trace_env=$(if [ "${{inputs.envs}}" = "true" ]; then echo "--output option:exec-env"; fi)
       docker pull aquasec/tracee:0.17.1
-      docker run -d --name tracee --rm \
+      docker run -d --name tracee --rm -p 3366:3366 \
       --privileged --pid=host --cgroupns=host \
       -e LIBBPFGO_OSRELEASE_FILE=/etc/os-release-host \
       -v /proc:/proc \
@@ -36,7 +36,7 @@ runs:
       --output option:exec-hash $trace_env \
       --output json:/tmp/tracee/out/trace_$GITHUB_RUN_ID.jsonl
       echo -n "Waiting for Tracee to start..."
-      while $(curl --head http://localhost:3366/healthz);
+      while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:3366/healthz)" != "200" ]]
       do
           echo -n "."
           sleep 1
