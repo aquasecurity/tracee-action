@@ -10,13 +10,13 @@ This project is using Tracee to protect GitHub Actions workflow against supply c
 
 ## Protection
 
-There are two modes of protection that tracee-action offers: Signatures, and Profile.
+tracee-action offers two kinds of protection that complements each other: Events, and Profile.
 
 ### Signatures
 
 Tracee runs in the background and hunts for suspicious behavior in the runner and in the workflow. It uses the powerful set of behavioral signatures that is available for Tracee, and you can add your own specific signatures to detect unwanted behavior.
 Signatures detections are reported to you as a comment on the PR that triggered the action for your review.
-You can review the list of default signatures [here](docs/signatures.md)
+You can review the list of events in the default policy [here](policies/signatures.yaml)
 
 ### Profile
 
