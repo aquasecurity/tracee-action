@@ -10,7 +10,7 @@ This project is using Tracee to protect GitHub Actions workflow against supply c
 
 ## Protection
 
-tracee-action offers two kinds of protection that complements each other: Signatures, and Profile.
+tracee-action offers two kinds of protection that complements each other: Events, and Profile.
 
 ### Signatures
 
