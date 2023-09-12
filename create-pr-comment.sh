@@ -18,4 +18,6 @@ $(cat /tmp/tracee-action/signatures.jsonl)
 \`\`\`
 EOF
 )
+
+comment=${comment:0:65536}
 gh pr comment $pull_number -b "$comment"
