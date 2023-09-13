@@ -29,7 +29,6 @@ spec:
     - event: ptrace_code_injection
     - event: process_vm_write_inject
     - event: disk_mount
-    - event: dynamic_code_loading
     - event: fileless_execution
     - event: illegitimate_shell
     - event: kernel_module_loading
