@@ -36,3 +36,6 @@ spec:
     - event: syscall_hooking
     - event: dropped_executable
     - event: miner_domain
+    - event: file_modification
+      filters:
+        - args.file_path=$WORKSPACE

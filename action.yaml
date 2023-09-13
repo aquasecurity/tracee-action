@@ -16,6 +16,7 @@ runs:
       sed -e "s/\$RUNNER_PID/$runner_pid/" ${{github.action_path}}/policies/runner.yaml.tmpl > ${{github.action_path}}/policies/runner.yaml
       echo "creating file_write policy"
       sed -e "s|\$WORKSPACE|${{github.workspace}}\/*|" ${{github.action_path}}/policies/file_writes.yaml.tmpl > ${{github.action_path}}/policies/file_writes.yaml
+      sed -e "s|\$WORKSPACE|${{github.workspace}}\/*|" ${{github.action_path}}/policies/signatures.yaml.tmpl > ${{github.action_path}}/policies/signatures.yaml
       trace_env=$(if [ "${{inputs.envs}}" = "true" ]; then echo "--output option:exec-env"; fi)
       docker pull aquasec/tracee:0.17.1
       docker run -d --name tracee --rm -p 3366:3366 \
