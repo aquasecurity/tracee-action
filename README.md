@@ -1,12 +1,11 @@
-# Production Ready
-
-**This project is not production ready. We are experimenting with it to test and demostrate Tracee capabilities.**
+**This project is for demonstration purpose only. It is not under active development. Use at your own risk**
+Watch a detailed introduction to the project: https://youtu.be/nNqrPNEqtw0
 
 # Protect your GitHub Actions with Tracee
 
 [Tracee](https://github.com/aquasecurity/tracee) is a powerful open source runtime security and forensics solution. It is using eBPF to trace your system, produce rich events that gives you visibility into what is happening under the hood, and also detects suspicious behavior in those event.
 
-This project is using Tracee to protect GitHub Actions workflow against supply chain attacks. You can add the `aquasecurity/tracee-action` GitHub Action to your workflow, which will automatically install Tracee in the runner and start tracing it.
+This project is using Tracee to protect GitHub Actions workflow against supply chain attacks.
 
 ## Protection
 
@@ -45,14 +44,3 @@ jobs:
 ```
 
 There are some configuration options the are detailed [here](docs/config.md)
-
----
-
-Tracee is an [Aqua Security] open source project.
-Learn about our open source work and portfolio [Here].
-Join the community, and talk to us about any matter in [GitHub Discussion] or [Slack].
-
-[Aqua Security]: https://aquasec.com
-[GitHub Discussion]: https://github.com/aquasecurity/tracee/discussions
-[Slack]: https://slack.aquasec.com
-[Here]: https://www.aquasec.com/products/open-source-projects/
